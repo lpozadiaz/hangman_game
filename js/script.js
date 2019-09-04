@@ -20,14 +20,14 @@ window.onload = function () {
   let letters;
   let list;
   let wordHolder;
-  let rightWord;
+  let letterSpaces;
   let count = 5;
   let time;
   
   let showLives = document.getElementById("lives");
   let showClue = document.getElementById("clue");
+  let showClock = document.getElementById("time");
 
-  
 // hangman
     // first line
    function firstLine() {
@@ -100,6 +100,8 @@ window.onload = function () {
     ctx.stroke();
   };
 
+// Alphabet buttons
+
   function buttons() {
     letterButtons = document.getElementById('buttons');
     letters = document.createElement('ul');
@@ -115,12 +117,14 @@ window.onload = function () {
     };
   };
 
+//Word holder
+
   function answer() {
     wordHolder = document.getElementById('hold');
-    rightWord = document.createElement('ul');
+    letterSpaces = document.createElement('ul');
 
     for (let i = 0; i < word.length; i++) {
-      rightWord.setAttribute('id', 'my-word');
+      letterSpaces.setAttribute('id', 'my-word');
       guess = document.createElement('li');
       guess.setAttribute('class', 'guess');
       
@@ -132,15 +136,19 @@ window.onload = function () {
       };
 
       guesses.push(guess);
-      wordHolder.appendChild(rightWord);
-      rightWord.appendChild(guess);
+      wordHolder.appendChild(letterSpaces);
+      letterSpaces.appendChild(guess);
     };
   };
+
+//Hints
 
   function hint() {
     let hintIndex = wordsArr.indexOf(chosenWord);
     showClue.innerHTML = "Definición: " +  hints[hintIndex];
   };
+
+//Check matches
   
   function check() {
     list.onclick = function () {
@@ -164,9 +172,11 @@ window.onload = function () {
     };
   };
 
+// Comments
+
   function comments() {
     showLives.innerHTML = "Te quedan " + lives + " oportunidades";
-    if (lives < 1 || time === 10) {
+    if (lives <= 0) {
       showLives.innerHTML = "¡Has perdido!";
     };
     for (let i = 0; i < guesses.length; i++) {
@@ -175,6 +185,8 @@ window.onload = function () {
       };
     };
   };
+
+// Play game
 
   function play() {
     chosenWord = wordsArr[Math.floor(Math.random() * wordsArr.length)];
@@ -194,14 +206,13 @@ window.onload = function () {
   play();
 
   function timedCount() {
-    document.getElementById("time").innerHTML = count + " segundos";
+    showClock.innerHTML = count + " segundos";
     count = count - 1;
     time = setTimeout(timedCount, 1000);
     
-    if (count === -1) {
+    if (count === -1 || lives === 0) {
       clearTimeout(time);
-      lives = 0;
-      comments();
+      stopGame()
     };
   };
   
@@ -209,21 +220,23 @@ window.onload = function () {
     timedCount();
   };
   
-  function stopCount() {
+  function resetCount() {
     clearTimeout(time);
     count = 60;
   };
 
-  function resetGame() {
-    rightWord.parentNode.removeChild(rightWord);
+  function stopGame() {
+    // letterSpaces.parentNode.removeChild(letterSpaces);
     letters.parentNode.removeChild(letters);
+    showClock.innerHTML = "";
     showClue.innerHTML = "";
-    ctx.clearRect(0, 0, 400, 400);
-    stopCount();
+    letterSpaces.innerHTML = "La respuesta correcta era " + chosenWord.toUpperCase();
+    ctx.clearRect(0, 0, 300, 300);
   };
 
   document.getElementById('reset').onclick = function() {
-    resetGame();
+    letterSpaces.parentNode.removeChild(letterSpaces);
+    resetCount();
     play();
   };
 
