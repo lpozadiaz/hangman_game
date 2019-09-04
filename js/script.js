@@ -14,14 +14,16 @@ window.onload = function () {
   let lives;
   let counter;
   let space;
-  let stickman; // canvas
-  let ctx; // canvas  ctx
+  let stickman; 
+  let ctx; 
   let letterButtons;
   let letters;
   let list;
   let wordHolder;
-  let correct;
-
+  let rightWord;
+  let count = 5;
+  let time;
+  
   let showLives = document.getElementById("lives");
   let showClue = document.getElementById("clue");
 
@@ -43,7 +45,6 @@ window.onload = function () {
   function fourthLine() {
     drawOnCanvas(60, 10, 60, 30);
   };
-  
   // head
   function head() {
     stickman = document.getElementById("canvas");
@@ -57,7 +58,6 @@ window.onload = function () {
   function body() {
     drawOnCanvas(60, 36, 60, 70);
   };
-  
   // right arm
   function rightArm() {
     drawOnCanvas(60, 46, 100, 50);
@@ -117,10 +117,10 @@ window.onload = function () {
 
   function answer() {
     wordHolder = document.getElementById('hold');
-    correct = document.createElement('ul');
+    rightWord = document.createElement('ul');
 
     for (let i = 0; i < word.length; i++) {
-      correct.setAttribute('id', 'my-word');
+      rightWord.setAttribute('id', 'my-word');
       guess = document.createElement('li');
       guess.setAttribute('class', 'guess');
       
@@ -132,8 +132,8 @@ window.onload = function () {
       };
 
       guesses.push(guess);
-      wordHolder.appendChild(correct);
-      correct.appendChild(guess);
+      wordHolder.appendChild(rightWord);
+      rightWord.appendChild(guess);
     };
   };
 
@@ -189,32 +189,37 @@ window.onload = function () {
     canvas();
     comments();
     hint();
-    startTime();
+    startCount()
   }
   play();
 
-  function startTime() {
-    let today = new Date();
-    let s = today.getSeconds();
-    // add a zero in front of numbers<10
-    s = checkTime(s);
-    document.getElementById("time").innerHTML = s + " segundos";
-    time = setTimeout(function(){ startTime() }, 15);
+  function timedCount() {
+    document.getElementById("time").innerHTML = count + " segundos";
+    count = count - 1;
+    time = setTimeout(timedCount, 1000);
+    
+    if (count === -1) {
+      clearTimeout(time);
+      lives = 0;
+      comments();
+    };
   };
   
-  function checkTime(i) {
-    if (i<10) {
-      i = "0" + i;
-    }
-    return i;
+  function startCount() {
+    timedCount();
+  };
+  
+  function stopCount() {
+    clearTimeout(time);
+    count = 60;
   };
 
   function resetGame() {
-    correct.parentNode.removeChild(correct);
+    rightWord.parentNode.removeChild(rightWord);
     letters.parentNode.removeChild(letters);
     showClue.innerHTML = "";
     ctx.clearRect(0, 0, 400, 400);
-    
+    stopCount();
   };
 
   document.getElementById('reset').onclick = function() {
