@@ -1,26 +1,107 @@
 window.onload = function () {
-  game();
-};
-
-function game() {
   let keyboard = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
         'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's',
         't', 'u', 'v', 'w', 'x', 'y', 'z'];
   
+  let wordsArr = ["everton", "liverpool", "swansea", "chelsea", "hull", "manchester-city", "newcastle-united", "alien", "dirty-harry", "gladiator", "finding-nemo", "jaws","manchester", "milan", "madrid", "amsterdam", "prague"];
+  let hints = ["Based in Mersyside", "Based in Mersyside", "First Welsh team to reach the Premier Leauge", "Owned by A russian Billionaire", "Once managed by Phil Brown", "2013 FA Cup runners up", "Gazza's first club", "Science-Fiction horror film", "1971 American action film", "Historical drama", "Anamated Fish", "Giant great white shark", "Northern city in the UK", "Home of AC and Inter", "Spanish capital", "Netherlands capital", "Czech Republic capital"];
+  let drawArray = [rightLeg, leftLeg, rightArm, leftArm, torso, head, smallVerticalFrame, upperHorzontalFrame, verticalFrame, lowerFrame];
+
   let word;
+  let chosenWord;
   let guess;
   let guesses = [ ];
   let lives;
   let counter;
   let space;
+  let myStickman; // canvas
+  let ctx; // canvas  ctx
+  let letterButtons;
+  let letters;
+  let list;
+  let wordHolder;
+  let correct;
 
   let showLives = document.getElementById("mylives");
   let showClue = document.getElementById("clue");
 
+  
+// -------------------------- hangman draw ---------------------------
+    // first line
+    function lowerFrame() {
+      drawOnCanvas(0, 200, 150, 200);
+  }
+  // second line
+  function verticalFrame() {
+      drawOnCanvas(10, 0, 10, 600);
+  }
+  // third line
+  function upperHorzontalFrame() {
+      drawOnCanvas(0, 5, 70, 5);
+  }
+  //fourth line
+  function smallVerticalFrame() {
+      drawOnCanvas(60, 5, 60, 15);
+  }
+  // torso
+  function torso() {
+      drawOnCanvas(60, 36, 60, 70);
+  }
+  // head
+  function head() {
+      myStickman = document.getElementById("canvas");
+      ctx = myStickman.getContext('2d');
+      ctx.beginPath();
+      ctx.strokeStyle = "red";
+      ctx.arc(60, 25, 10, 0, Math.PI * 2);
+      ctx.stroke();
+  }
 
+  // right arm
+  function rightArm() {
+      drawOnCanvas(60, 46, 100, 50);
+  }
+  
+  // left arm
+  function leftArm() {
+      drawOnCanvas(60, 46, 20, 50);
+  }
+  // right leg
+  function rightLeg() {
+      drawOnCanvas(60, 70, 100, 100);
+  }
+  // left leg
+  function leftLeg() {
+      drawOnCanvas(60, 70, 20, 100);
+  }
+
+  // Animate man
+  function animate() {
+      var drawMe = lives;
+      drawArray[drawMe]();
+  }
+
+  function canvas() {
+    myStickman = document.getElementById("canvas");
+    myStickman.width = 300;
+    myStickman.height = 200;
+    ctx = myStickman.getContext('2d');
+
+    //context.beginPath();
+    ctx.strokeStyle = "#000";
+    ctx.lineWidth = 5;
+  } 
+
+function drawOnCanvas(pathFromX, pathFromY, pathToX, pathToY) {
+    ctx.beginPath();
+    ctx.strokeStyle = "whitesmoke";
+    ctx.moveTo(pathFromX, pathFromY);
+    ctx.lineTo(pathToX, pathToY);
+    ctx.stroke();
+  }
 
   function buttons() {
-    myButtons = document.getElementById('buttons');
+    letterButtons = document.getElementById('buttons');
     letters = document.createElement('ul');
 
     for (let i = 0; i < keyboard.length; i++) {
@@ -29,14 +110,14 @@ function game() {
       list.id = 'letter';
       list.innerHTML = keyboard[i];
       check();
-      myButtons.appendChild(letters);
+      letterButtons.appendChild(letters);
       letters.appendChild(list);
     };
   };
 
-  function result() {
-    let wordHolder = document.getElementById('hold');
-    let correct = document.createElement('ul');
+  function answer() {
+    wordHolder = document.getElementById('hold');
+    correct = document.createElement('ul');
 
     for (let i = 0; i < word.length; i++) {
       correct.setAttribute('id', 'my-word');
@@ -68,48 +149,6 @@ function game() {
     };
   };
 
-  function animate() {
-    let drawMe = lives ;
-    drawBody(drawMe);
-  };
-
-  function canvas () {
-    canvas = document.getElementById("canvas");
-    ctx = canvas.getContext('2d');
-  };
-
-  function drawBody(guesses) {
-    ctx.beginPath();
-    switch(guesses) {
-      case 6:
-        break;
-      case 5: 
-        ctx.arc(350, 250, 20, 0, Math.PI * 2, false);
-        break;
-      case 4: 
-        ctx.moveTo(350, 270);
-        ctx.lineTo(350, 330);
-        break;
-      case 3:
-        ctx.moveTo(350, 330);
-        ctx.lineTo(325, 370);
-        break;
-      case 2:
-        ctx.moveTo(350, 330);
-        ctx.lineTo(375, 370);
-        break;
-      case 1:
-        ctx.moveTo(350, 300)
-        ctx.lineTo(375, 275);
-        break;
-      case 0: 
-        ctx.moveTo(350, 300);
-        ctx.lineTo(325, 275);
-        break;
-    };
-    ctx.stroke();
-  };
-  
   function check() {
     list.onclick = function () {
       let guess = (this.innerHTML);
@@ -133,9 +172,7 @@ function game() {
   };
   
   function play() {
-    words = ["everton", "liverpool", "swansea", "chelsea", "hull", "manchester-city", "newcastle-united", "alien", "dirty-harry", "gladiator", "finding-nemo", "jaws","manchester", "milan", "madrid", "amsterdam", "prague"];
-
-    chosenWord = words[Math.floor(Math.random() * words.length)];
+    chosenWord = wordsArr[Math.floor(Math.random() * wordsArr.length)];
     word = chosenWord.replace(/\s/g, "-");
     buttons();
 
@@ -143,29 +180,32 @@ function game() {
     lives = 10;
     counter = 0;
     space = 0;
-    result();
+    answer();
     comments();
     canvas();
   }
   play();
-  
-  // Hint
 
   function hint() {
-    hints = ["Based in Mersyside", "Based in Mersyside", "First Welsh team to reach the Premier Leauge", "Owned by A russian Billionaire", "Once managed by Phil Brown", "2013 FA Cup runners up", "Gazza's first club", "Science-Fiction horror film", "1971 American action film", "Historical drama", "Anamated Fish", "Giant great white shark", "Northern city in the UK", "Home of AC and Inter", "Spanish capital", "Netherlands capital", "Czech Republic capital"];
-
-    let hintIndex = words.indexOf(chosenWord);
+    let hintIndex = wordsArr.indexOf(chosenWord);
     showClue.innerHTML = "Definición: " +  hints[hintIndex];
   };
   hint();
 
-  document.getElementById('reset').onclick = function() {
+  function resetGame() {
     correct.parentNode.removeChild(correct);
     letters.parentNode.removeChild(letters);
     showClue.innerHTML = "";
-    context.clearRect(0, 0, 400, 400);
+    ctx.clearRect(0, 0, 400, 400);
+    
+  };
+
+  document.getElementById('reset').onclick = function() {
+    resetGame();
     play();
   };
+
 };
+
 
 
