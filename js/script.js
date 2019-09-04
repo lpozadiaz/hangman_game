@@ -21,8 +21,9 @@ window.onload = function () {
   let list;
   let wordHolder;
   let letterSpaces;
-  let count = 5;
+  let count = 60;
   let time;
+  let intervalID;
   
   let showLives = document.getElementById("lives");
   let showClue = document.getElementById("clue");
@@ -56,23 +57,23 @@ window.onload = function () {
   };
   // body
   function body() {
-    drawOnCanvas(60, 36, 60, 70);
+    drawOnCanvas(60, 60, 60, 100);
   };
   // right arm
   function rightArm() {
-    drawOnCanvas(60, 46, 100, 50);
+    drawOnCanvas(60, 60, 100, 60);
   };
   // left arm
   function leftArm() {
-    drawOnCanvas(60, 46, 20, 50);
+    drawOnCanvas(20, 60, 60, 60);
   };
   // right leg
   function rightLeg() {
-    drawOnCanvas(60, 70, 100, 100);
+    drawOnCanvas(60, 100, 80, 120);
   };
   // left leg
   function leftLeg() {
-    drawOnCanvas(60, 70, 20, 100);
+    drawOnCanvas(40, 120, 60, 100);
   };
 
 // animate stickman
@@ -88,16 +89,39 @@ window.onload = function () {
     stickman.height = 300;
   
     ctx = stickman.getContext('2d');
-    ctx.strokeStyle = "#000";
+    ctx.strokeStyle = "whitesmoke";
+    ctx.lineCap = "round";
     ctx.lineWidth = 5;
   };
 
   function drawOnCanvas(pathFromX, pathFromY, pathToX, pathToY) {
-    ctx.beginPath();
-    ctx.strokeStyle = "whitesmoke";
-    ctx.moveTo(pathFromX, pathFromY);
-    ctx.lineTo(pathToX, pathToY);
-    ctx.stroke();
+    intervalID = setInterval(() => {
+      if (pathFromX < pathToX && pathFromY == pathToY) {
+        ctx.beginPath();
+        ctx.moveTo(pathFromX, pathFromY);
+        ctx.lineTo(pathFromX++, pathToY);
+        ctx.stroke();
+        ctx.closePath();
+      } else if (pathFromX == pathToX && pathFromY < pathToY) {
+        ctx.beginPath();
+        ctx.moveTo(pathFromX, pathFromY);
+        ctx.lineTo(pathToX, pathFromY++);
+        ctx.stroke();
+        ctx.closePath();
+      } else if (pathFromX < pathToX && pathFromY < pathToY) {
+        ctx.beginPath();
+        ctx.moveTo(pathFromX, pathFromY);
+        ctx.lineTo(pathFromX++, pathFromY++);
+        ctx.stroke();
+        ctx.closePath();
+      } else if (pathFromX < pathToX && pathFromY > pathToY) {
+        ctx.beginPath();
+        ctx.moveTo(pathFromX, pathFromY);
+        ctx.lineTo(pathFromX++, pathFromY--);
+        ctx.stroke();
+        ctx.closePath();
+      }
+    }, 10);
   };
 
 // Alphabet buttons
@@ -176,7 +200,7 @@ window.onload = function () {
 
   function comments() {
     showLives.innerHTML = "Te quedan " + lives + " oportunidades";
-    if (lives <= 0) {
+    if (lives < 1) {
       showLives.innerHTML = "¡Has perdido!";
     };
     for (let i = 0; i < guesses.length; i++) {
@@ -212,7 +236,9 @@ window.onload = function () {
     
     if (count === -1 || lives === 0) {
       clearTimeout(time);
-      stopGame()
+      lives = 0;
+      comments();
+      stopGame();
     };
   };
   
@@ -226,12 +252,13 @@ window.onload = function () {
   };
 
   function stopGame() {
-    // letterSpaces.parentNode.removeChild(letterSpaces);
     letters.parentNode.removeChild(letters);
     showClock.innerHTML = "";
     showClue.innerHTML = "";
     letterSpaces.innerHTML = "La respuesta correcta era " + chosenWord.toUpperCase();
+    clearInterval(intervalID);
     ctx.clearRect(0, 0, 300, 300);
+    
   };
 
   document.getElementById('reset').onclick = function() {
