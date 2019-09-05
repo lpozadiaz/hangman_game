@@ -3,25 +3,23 @@
 }
 body {
   background: rgb(249, 246, 234);
-  font-family: 'Handlee', cursive;
   color: rgba(31, 58, 147, 1);
   text-align: center;
   font-size: 10px;
 }
-
 
 canvas{
   padding:15px;
 }
 
 h1 {
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Fredericka the Great', cursive;
   font-size: 3rem;
-  margin: 1rem;
-  color: rgba(247, 202, 24, 1);
+  margin: 1.2rem;
 }
 
-#wrapper {
+.header, 
+.wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,6 +31,7 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-family: 'Indie Flower', cursive;
 }
 
 #keyboard {
@@ -43,7 +42,6 @@ h1 {
   justify-content: space-evenly;
   align-items: center;
   margin: 10px auto;
-  padding: 0;
 }
 
 #keyboard li,
@@ -54,30 +52,31 @@ h1 {
   justify-content: center;
   margin: 0 2px 2px 0;
   border: solid 1px rgba(31, 58, 147, 1);
-  background-color:rgba(31, 58, 147, 0.495);
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Fredericka the Great', cursive;
   text-align: center;
-  color: base-color;
+  color: rgba(31, 58, 147, 1);
   cursor: pointer;
 }
 
 #keyboard li {
   width:30px;
   height:30px;
+  border-radius: 15px;
   font-size: 1rem;
 }
 
 #reset {
   font-size: 1.2rem;
-  margin: 0.5rem;
+  margin: 2rem 0.5rem 0 0.5rem;
   padding: 0.5rem;
+  background-color: rgb(249, 246, 234);
 }
 
 #hold{
   display: flex;
   justify-content: center;
   align-content: center;
-  margin: 0.8rem 0;
+  margin: 0.5rem 0;
 }
 
 #my-word {
@@ -87,16 +86,11 @@ h1 {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  margin: 0;
-  display: block;
-  padding: 0;
-  display: block;
 }
 
 #my-word li {
   list-style: none;
   display: inline-block;
-  margin: 0;
   padding: 0 0.05rem;
   font-size: 1.5rem;
 }
@@ -108,10 +102,6 @@ h1 {
 
 #clue {
   font-size:1rem;
-}
-
-#reset {
-  display: none;
 }
 
 #time {
@@ -134,11 +124,80 @@ h1 {
 }
 
 #answer {
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 #message {
-  font-size: 2rem;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 2.5rem;
+  color: rgb(242, 226, 8);
   margin: 1rem;
 }
 
+@media (min-width: 420px) {
+  #canvas {
+    width: 60%;
+    height: 60%;
+  }
+}
+
+
+@media (min-width: 720px) {
+  h1 {
+    font-size: 4rem;
+    margin: 1.5rem;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 4rem;
+  }
+
+  #time {
+    font-size: 1.5rem;
+  }
+
+  #canvas {
+    width: 40%;
+    height: 40%;
+    border: solid 1px rgba(31, 58, 147, 1);
+  }
+
+  .game {
+    width: 40%;
+    height: 40%;
+  }
+
+  #message {
+    margin: 0.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 5rem;
+    margin: 2rem;
+  }
+  
+  #canvas {
+    width: 45%;
+    height: 45%;
+  }
+
+  .game {
+    width: 45%;
+    height: 45%;
+  }
+
+  #message {
+    font-size: 3rem;
+  }
+
+  #answer {
+    font-size: 1.5rem;
+    margin: 0.5rem;
+  }
+}

@@ -27,7 +27,7 @@ window.onload = function () {
   let list;
   let wordHolder;
   let letterSpaces;
-  let count = 5;
+  let count = 60;
   let time;
   let intervalID;
   
@@ -36,7 +36,7 @@ window.onload = function () {
   let showClue = document.getElementById("clue");
   let showClock = document.getElementById("time");
   let showButton = document.getElementById("reset");
-  let finalMessage = document.getElementById("message");
+  // let finalMessage = document.getElementById("message");
 
 // hangman
     // first line
@@ -204,13 +204,14 @@ window.onload = function () {
 // Comments
 
   function comments() {
+    showLives.setAttribute('id', 'answer');
     showLives.innerHTML = "Te quedan " + lives + " oportunidades";
   };
 
 // Play game
 
   function play() {
-    finalMessage.innerHTML = "";
+    
     chosenWord = wordsArr[Math.floor(Math.random() * wordsArr.length)];
     word = chosenWord.replace(/\s/g, "-");
     buttons();
@@ -234,16 +235,18 @@ window.onload = function () {
     time = setTimeout(timedCount, 1000);
 
     if (lives < 1 || count === -1) {
-      finalMessage.innerHTML = "¡Has perdido!";
+      showLives.setAttribute('id', 'message');
+      showLives.innerHTML = "¡Has perdido!";
       letterSpaces.setAttribute('id', 'answer');
       letterSpaces.innerHTML = "La respuesta correcta es: " + chosenWord.toUpperCase()
       clearTimeout(time);
       stopGame();
     } else if (counter + space === guesses.length) {
-        finalMessage.innerHTML = "¡Muy listo!";
+        showLives.setAttribute('id', 'message');
+        showLives.innerHTML = "¡Muy listo!";
         clearTimeout(time);
         stopGame();
-      };
+    };
   };
   
   
@@ -268,13 +271,13 @@ window.onload = function () {
     letters.parentNode.removeChild(letters);
     showClock.innerHTML = "";
     showClue.innerHTML = "";
-    showLives.innerHTML = "";
     clearInterval(intervalID);
-    ctx.clearRect(0, 0, w, h); 
+    
     startButton();
   };
 
   document.getElementById('reset').onclick = function() { 
+    ctx.clearRect(0, 0, w, h); 
     letterSpaces.parentNode.removeChild(letterSpaces);
     resetCount();
     play();
