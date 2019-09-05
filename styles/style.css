@@ -4,12 +4,9 @@
 body {
   background: rgb(249, 246, 234);
   color: rgba(31, 58, 147, 1);
+  font-family: 'Indie Flower', cursive;
   text-align: center;
   font-size: 10px;
-}
-
-canvas{
-  padding:15px;
 }
 
 h1 {
@@ -31,7 +28,6 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: 'Indie Flower', cursive;
 }
 
 #keyboard {
@@ -112,6 +108,7 @@ h1 {
 #canvas {
   width: 90%;
   height: 90%;
+  
 }
 
 #lives {
@@ -158,6 +155,7 @@ h1 {
 
   #time {
     font-size: 1.5rem;
+    margin: 1rem;
   }
 
   #canvas {
