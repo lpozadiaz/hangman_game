@@ -3,8 +3,8 @@ window.onload = function () {
         'i', 'j', 'k', 'l', 'm', 'n', 'ñ', 'o', 'p', 'q', 'r', 's',
         't', 'u', 'v', 'w', 'x', 'y', 'z'];
   
-  let wordsArr = ["everton", "liverpool", "swansea", "chelsea", "hull", "manchester-city", "newcastle-united", "alien", "dirty-harry", "gladiator", "finding-nemo", "jaws","manchester", "milan", "madrid", "amsterdam", "prague"];
-  let hints = ["Based in Mersyside", "Based in Mersyside", "First Welsh team to reach the Premier Leauge", "Owned by A russian Billionaire", "Once managed by Phil Brown", "2013 FA Cup runners up", "Gazza's first club", "Science-Fiction horror film", "1971 American action film", "Historical drama", "Anamated Fish", "Giant great white shark", "Northern city in the UK", "Home of AC and Inter", "Spanish capital", "Netherlands capital", "Czech Republic capital"];
+  let wordsArr = ["archiperres", "adefesio", "allende", "azafate", "cachivache", "correveidile", "cuchipanda", "entelequia", "floripondio", "lechuguino", "melifluo", "paparrucha", "pardiez", "picaflor", "plumier", "pocholo", "tarambana"];
+  let hints = ["trasto, cosa inútil", "persona o cosa ridícula, extravagante o muy fea", "más allá de", "canastillo, bandeja o fuente con borde de poca altura, tejidos de mimbres o hechos de paja, oro, plata, latón, loza u otras materias", "cosa rota o inservible", "persona que lleva y trae cuentos y chismes","comida que toman juntas y regocijadamente varias personas", "cosa irreal", "flor grande que suele figurar en adornos de mal gusto", "muchacho imberbe que se mete a galantear aparentando ser hombre hecho", "que tiene miel o es parecido a ella en sus propiedades", "noticia falsa y desatinada de un suceso, esparcida entre el vulgo", "par Dios", "frívolo inconstante", "caja o estuche que sirve para guardar plumas, lápices, etc", "bonito, atractivo o agradable", "persona alocada, de poco juicio"];
   let drawArray = [rightLeg, leftLeg, rightArm, leftArm, body, head, fourthLine, thirdLine, secondLine, firstLine];
 
   let word;
@@ -14,14 +14,20 @@ window.onload = function () {
   let lives;
   let counter;
   let space;
-  let stickman; 
-  let ctx; 
+
+  let stickman = document.getElementById("canvas"); 
+  let ctx = stickman.getContext('2d');
+  const w = 300;
+  const h = 300;
+  stickman.setAttribute("width", `${w}px`);
+  stickman.setAttribute("height", `${h}px`);
+
   let letterButtons;
   let letters;
   let list;
   let wordHolder;
   let letterSpaces;
-  let count = 60;
+  let count = 5;
   let time;
   let intervalID;
   
@@ -48,32 +54,35 @@ window.onload = function () {
   };
   // head
   function head() {
-    stickman = document.getElementById("canvas");
-    ctx = stickman.getContext('2d');
     ctx.beginPath();
-    ctx.strokeStyle = "white";
+    ctx.strokeStyle = "blue";
     ctx.arc(60, 45, 15, 0, Math.PI * 2);
     ctx.stroke();
+    ctx.closePath();
   };
   // body
   function body() {
     drawOnCanvas(60, 60, 60, 100);
   };
+
+  // left arm
+   function leftArm() {
+    drawOnCanvas(20, 60, 60, 60);
+  };
+
   // right arm
   function rightArm() {
     drawOnCanvas(60, 60, 100, 60);
   };
-  // left arm
-  function leftArm() {
-    drawOnCanvas(20, 60, 60, 60);
-  };
-  // right leg
-  function rightLeg() {
-    drawOnCanvas(60, 100, 80, 120);
-  };
+ 
   // left leg
   function leftLeg() {
     drawOnCanvas(40, 120, 60, 100);
+  };
+
+  // right leg
+  function rightLeg() {
+    drawOnCanvas(60, 100, 80, 120);
   };
 
 // animate stickman
@@ -84,18 +93,14 @@ window.onload = function () {
 
 // canvas
   function canvas() {
-    stickman = document.getElementById("canvas");
-    stickman.width = 300;
-    stickman.height = 300;
-  
-    ctx = stickman.getContext('2d');
-    ctx.strokeStyle = "whitesmoke";
+    ctx.strokeStyle = "blue";
     ctx.lineCap = "round";
     ctx.lineWidth = 5;
   };
 
   function drawOnCanvas(pathFromX, pathFromY, pathToX, pathToY) {
     intervalID = setInterval(() => {
+    
       if (pathFromX < pathToX && pathFromY == pathToY) {
         ctx.beginPath();
         ctx.moveTo(pathFromX, pathFromY);
@@ -169,7 +174,7 @@ window.onload = function () {
 
   function hint() {
     let hintIndex = wordsArr.indexOf(chosenWord);
-    showClue.innerHTML = "Definición: " +  hints[hintIndex];
+    showClue.innerHTML = "Definición: " +  hints[hintIndex] + ".";
   };
 
 //Check matches
@@ -183,7 +188,9 @@ window.onload = function () {
         if (word[i] === guess) {
           guesses[i].innerHTML = guess;
           counter++;
-        } 
+        } if (counter + space === guesses.length) {
+          stopGame();
+        }
       };
       let j = (word.indexOf(guess));
       if (j === -1) {
@@ -202,10 +209,12 @@ window.onload = function () {
     showLives.innerHTML = "Te quedan " + lives + " oportunidades";
     if (lives < 1) {
       showLives.innerHTML = "¡Has perdido!";
+     
     };
     for (let i = 0; i < guesses.length; i++) {
       if (counter + space === guesses.length) {
         showLives.innerHTML = "¡Muy listo!";
+        
       };
     };
   };
@@ -235,10 +244,10 @@ window.onload = function () {
     time = setTimeout(timedCount, 1000);
     
     if (count === -1 || lives === 0) {
-      clearTimeout(time);
+      // clearTimeout(time);
       lives = 0;
-      comments();
       stopGame();
+      // comments();
     };
   };
   
@@ -247,7 +256,7 @@ window.onload = function () {
   };
   
   function resetCount() {
-    clearTimeout(time);
+    // clearTimeout(time);
     count = 60;
   };
 
@@ -255,13 +264,14 @@ window.onload = function () {
     letters.parentNode.removeChild(letters);
     showClock.innerHTML = "";
     showClue.innerHTML = "";
-    letterSpaces.innerHTML = "La respuesta correcta era " + chosenWord.toUpperCase();
+    letterSpaces.innerHTML = "La respuesta correcta es: " + chosenWord.toUpperCase();
     clearInterval(intervalID);
-    ctx.clearRect(0, 0, 300, 300);
-    
+    ctx.clearRect(0, 0, 300, 300); 
+    clearTimeout(time);
+    comments();
   };
 
-  document.getElementById('reset').onclick = function() {
+  document.getElementById('reset').onclick = function() { 
     letterSpaces.parentNode.removeChild(letterSpaces);
     resetCount();
     play();
