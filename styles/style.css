@@ -56,10 +56,8 @@ p{
   font-family: 'Roboto Slab', serif;
   font-size: 1rem;
   text-align: center;
-  
-  color:base-color;
-  cursor:pointer;
-  
+  color: base-color;
+  cursor: pointer;
 }
 
 #my-word {
@@ -80,9 +78,19 @@ p{
 
 
 #mylives{
-  font-size:1.6em;
+  font-size:1rem;
   text-align:center;
   display:block;
 }
 
+#clue {
+  font-size:1rem;
+}
+#reset {
+  display: none;
+}
+
+#hold{
+  font-size:1rem;
+}
 

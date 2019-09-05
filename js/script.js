@@ -31,9 +31,11 @@ window.onload = function () {
   let time;
   let intervalID;
   
+  
   let showLives = document.getElementById("lives");
   let showClue = document.getElementById("clue");
   let showClock = document.getElementById("time");
+  let showButton = document.getElementById("reset");
 
 // hangman
     // first line
@@ -55,7 +57,7 @@ window.onload = function () {
   // head
   function head() {
     ctx.beginPath();
-    ctx.strokeStyle = "blue";
+    ctx.strokeStyle = "#1f3a93";
     ctx.arc(60, 45, 15, 0, Math.PI * 2);
     ctx.stroke();
     ctx.closePath();
@@ -174,7 +176,7 @@ window.onload = function () {
 
   function hint() {
     let hintIndex = wordsArr.indexOf(chosenWord);
-    showClue.innerHTML = "Definición: " +  hints[hintIndex] + ".";
+    showClue.innerHTML = "DEFINICIÓN: " +  hints[hintIndex] + ".";
   };
 
 //Check matches
@@ -188,10 +190,7 @@ window.onload = function () {
         if (word[i] === guess) {
           guesses[i].innerHTML = guess;
           counter++;
-        } if (counter + space === guesses.length) {
-          stopGame();
-        }
-      };
+      };};
       let j = (word.indexOf(guess));
       if (j === -1) {
         lives--;
@@ -207,16 +206,6 @@ window.onload = function () {
 
   function comments() {
     showLives.innerHTML = "Te quedan " + lives + " oportunidades";
-    if (lives < 1) {
-      showLives.innerHTML = "¡Has perdido!";
-     
-    };
-    for (let i = 0; i < guesses.length; i++) {
-      if (counter + space === guesses.length) {
-        showLives.innerHTML = "¡Muy listo!";
-        
-      };
-    };
   };
 
 // Play game
@@ -234,7 +223,8 @@ window.onload = function () {
     canvas();
     comments();
     hint();
-    startCount()
+    startCount();
+    hideButton();
   }
   play();
 
@@ -242,21 +232,35 @@ window.onload = function () {
     showClock.innerHTML = count + " segundos";
     count = count - 1;
     time = setTimeout(timedCount, 1000);
-    
-    if (count === -1 || lives === 0) {
-      lives = 0;
+
+    if (lives < 1 || count === -1) {
+      showLives.innerHTML = "¡Has perdido!";
+      clearTimeout(time);
       stopGame();
-    };
+    } else if (counter + space === guesses.length) {
+        showLives.innerHTML = "¡Muy listo!";
+        clearTimeout(time);
+        stopGame();
+      };
   };
+  
   
   function startCount() {
     timedCount();
   };
   
   function resetCount() {
-    // clearTimeout(time);
+    clearTimeout(time);
     count = 60;
   };
+
+  function hideButton(){
+    showButton.style.display = "none";
+  }
+
+  function startButton() {
+    showButton.style.display = "block";
+  }
 
   function stopGame() {
     letters.parentNode.removeChild(letters);
@@ -265,18 +269,14 @@ window.onload = function () {
     letterSpaces.innerHTML = "La respuesta correcta es: " + chosenWord.toUpperCase();
     clearInterval(intervalID);
     ctx.clearRect(0, 0, w, h); 
-    clearTimeout(time);
-    comments();
+    
+    startButton();
   };
 
   document.getElementById('reset').onclick = function() { 
     letterSpaces.parentNode.removeChild(letterSpaces);
-    stopGame();
     resetCount();
     play();
   };
 
 };
-
-
-
