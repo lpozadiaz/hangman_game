@@ -2,12 +2,11 @@
   box-sizing: border-box;
 }
 body {
-  background: whitesmoke;
+  background: rgb(249, 246, 234);
   font-family: 'Handlee', cursive;
-  color: blue;
-  height:100%;
-  text-align:center;
-  font-size:18px;
+  color: rgba(31, 58, 147, 1);
+  text-align: center;
+  font-size: 10px;
 }
 
 
@@ -15,23 +14,22 @@ canvas{
   padding:15px;
 }
 
-h1, h2, h3 {
-  font-family: 'Permanent Marker', cursive;
-	font-weight: 100;
-	text-transform: uppercase;
-   margin:5px 0;
-}
-
 h1 {
-	font-size: 2.6em;
-}
-
-h2 {
-	font-size: 1.6em;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 3rem;
+  margin: 0.5rem;
+  color: rgba(247, 202, 24, 1);
 }
 
 p{
-  font-size: 1.6em;
+  font-size: 1.6rem;
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 #keyboard {
@@ -45,13 +43,6 @@ p{
   padding: 0;
 }
 
-#wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: centers;
-}
-
 #keyboard li {
   list-style:none;
   display: flex;
@@ -60,9 +51,10 @@ p{
   width:30px;
   height:30px;
   margin: 0 2px 2px 0;
-  border: solid 1px blue;
-  background-color:gray;
+  border: solid 1px rgba(31, 58, 147, 1);
+  background-color:rgba(31, 58, 147, 0.495);
   font-family: 'Roboto Slab', serif;
+  font-size: 1rem;
   text-align: center;
   
   color:base-color;

@@ -93,14 +93,14 @@ window.onload = function () {
 
 // canvas
   function canvas() {
-    ctx.strokeStyle = "blue";
+    ctx.strokeStyle = "#1f3a93";
     ctx.lineCap = "round";
     ctx.lineWidth = 5;
   };
 
   function drawOnCanvas(pathFromX, pathFromY, pathToX, pathToY) {
     intervalID = setInterval(() => {
-    
+      
       if (pathFromX < pathToX && pathFromY == pathToY) {
         ctx.beginPath();
         ctx.moveTo(pathFromX, pathFromY);
@@ -244,10 +244,8 @@ window.onload = function () {
     time = setTimeout(timedCount, 1000);
     
     if (count === -1 || lives === 0) {
-      // clearTimeout(time);
       lives = 0;
       stopGame();
-      // comments();
     };
   };
   
@@ -266,13 +264,14 @@ window.onload = function () {
     showClue.innerHTML = "";
     letterSpaces.innerHTML = "La respuesta correcta es: " + chosenWord.toUpperCase();
     clearInterval(intervalID);
-    ctx.clearRect(0, 0, 300, 300); 
+    ctx.clearRect(0, 0, w, h); 
     clearTimeout(time);
     comments();
   };
 
   document.getElementById('reset').onclick = function() { 
     letterSpaces.parentNode.removeChild(letterSpaces);
+    stopGame();
     resetCount();
     play();
   };
