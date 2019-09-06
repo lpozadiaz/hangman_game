@@ -8,7 +8,7 @@ body {
 
 h1 {
   color: rgba(241, 90, 34, 1);
-  font-family: 'Fredericka the Great', cursive;
+  font-family: "Fredericka the Great", cursive;
   font-size: 5rem;
   margin: 6rem 0.5rem 1rem 0.5rem;
   text-align: center;
@@ -21,11 +21,10 @@ h1 {
   justify-content: center;
 }
 
-
 #game {
   margin: 0 2px 2px 0;
   border: solid 1px rgba(241, 90, 34, 1);
-  font-family: 'Fredericka the Great', cursive;
+  font-family: "Fredericka the Great", cursive;
   text-align: center;
   color: rgba(241, 90, 34, 1);
   cursor: pointer;
@@ -37,7 +36,7 @@ h1 {
 
 p {
   color: rgba(31, 58, 147, 1);
-  font-family: 'Indie Flower', cursive;
+  font-family: "Indie Flower", cursive;
   font-size: 2rem;
   text-align: center;
   margin: 3rem 1rem 1rem 1rem;
@@ -49,7 +48,6 @@ p {
     font-size: 6rem;
     margin: 7rem 0.5rem 3rem 0.5rem;
   }
-
 }
 
 @media (min-width: 1024px) {
@@ -57,5 +55,4 @@ p {
     font-size: 7rem;
     margin: 10rem 0.5rem 5rem 0.5rem;
   }
-  
 }

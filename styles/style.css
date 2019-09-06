@@ -4,18 +4,18 @@
 body {
   background: rgb(249, 246, 234);
   color: rgba(31, 58, 147, 1);
-  font-family: 'Indie Flower', cursive;
+  font-family: "Indie Flower", cursive;
   text-align: center;
   font-size: 10px;
 }
 
 h1 {
-  font-family: 'Fredericka the Great', cursive;
+  font-family: "Fredericka the Great", cursive;
   font-size: 3rem;
-  margin: 1.2rem;
+  margin: 1rem;
 }
 
-.header, 
+.header,
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -37,26 +37,26 @@ h1 {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  margin: 10px auto;
+  margin: 1rem auto;
 }
 
 #keyboard li,
 #reset {
-  list-style:none;
+  list-style: none;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 2px 2px 0;
   border: solid 1px rgba(31, 58, 147, 1);
-  font-family: 'Fredericka the Great', cursive;
+  font-family: "Fredericka the Great", cursive;
   text-align: center;
   color: rgba(31, 58, 147, 1);
   cursor: pointer;
 }
 
 #keyboard li {
-  width:30px;
-  height:30px;
+  width: 30px;
+  height: 30px;
   border-radius: 15px;
   font-size: 1rem;
 }
@@ -68,7 +68,7 @@ h1 {
   background-color: rgb(249, 246, 234);
 }
 
-#hold{
+#hold {
   display: flex;
   justify-content: center;
   align-content: center;
@@ -91,13 +91,13 @@ h1 {
   font-size: 1.5rem;
 }
 
-#lives{
+#lives {
   font-size: 1rem;
   margin: 1rem;
 }
 
 #clue {
-  font-size:1rem;
+  font-size: 1rem;
 }
 
 #time {
@@ -106,13 +106,12 @@ h1 {
 }
 
 #canvas {
-  width: 90%;
-  height: 90%;
-  
+  width: 80%;
+  height: 80%;
 }
 
 #lives {
- font-size: 1rem;
+  font-size: 1rem;
 }
 
 #clue {
@@ -125,7 +124,7 @@ h1 {
 }
 
 #message {
-  font-family: 'Permanent Marker', cursive;
+  font-family: "Permanent Marker", cursive;
   font-size: 2.5rem;
   color: rgb(242, 226, 8);
   margin: 1rem;
@@ -133,11 +132,10 @@ h1 {
 
 @media (min-width: 420px) {
   #canvas {
-    width: 60%;
-    height: 60%;
+    width: 70%;
+    height: 70%;
   }
 }
-
 
 @media (min-width: 720px) {
   h1 {
@@ -161,7 +159,7 @@ h1 {
   #canvas {
     width: 40%;
     height: 40%;
-    border: solid 1px rgba(31, 58, 147, 1);
+    /* border: solid 0.5px rgba(31, 58, 147, 1); */
   }
 
   .game {
@@ -179,7 +177,7 @@ h1 {
     font-size: 5rem;
     margin: 2rem;
   }
-  
+
   #canvas {
     width: 45%;
     height: 45%;
