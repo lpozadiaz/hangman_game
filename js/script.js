@@ -1,74 +1,5 @@
 window.onload = function() {
-  let keyboard = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-    "k",
-    "l",
-    "m",
-    "n",
-    "ñ",
-    "o",
-    "p",
-    "q",
-    "r",
-    "s",
-    "t",
-    "u",
-    "v",
-    "w",
-    "x",
-    "y",
-    "z"
-  ];
-
-  let wordsArr = [
-    "archiperres",
-    "ardora",
-    "adefesio",
-    "allende",
-    "azafate",
-    "cachivache",
-    "correveidile",
-    "cuchipanda",
-    "entelequia",
-    "floripondio",
-    "lechuguino",
-    "melifluo",
-    "paparrucha",
-    "pardiez",
-    "picaflor",
-    "plumier",
-    "pocholo",
-    "tarambana"
-  ];
-  let hints = [
-    "trasto, cosa inútil",
-    "fosforescencia del mar que indica la presencia de un banco de sardinas",
-    "persona o cosa ridícula, extravagante o muy fea",
-    "más allá de",
-    "canastillo, bandeja o fuente con borde de poca altura",
-    "cosa rota o inservible",
-    "persona que lleva y trae cuentos y chismes",
-    "comida que toman juntas y regocijadamente varias personas",
-    "cosa irreal",
-    "flor grande que suele figurar en adornos de mal gusto",
-    "muchacho imberbe que se mete a galantear aparentando ser hombre hecho",
-    "que tiene miel o es parecido a ella en sus propiedades",
-    "noticia falsa y desatinada de un suceso, esparcida entre el vulgo",
-    "par Dios",
-    "frívolo inconstante",
-    "caja o estuche que sirve para guardar plumas, lápices, etc",
-    "bonito, atractivo o agradable",
-    "persona alocada, de poco juicio"
-  ];
+  
   let drawArray = [
     rightLeg,
     leftLeg,
@@ -110,7 +41,6 @@ window.onload = function() {
   let showClue = document.getElementById("clue");
   let showClock = document.getElementById("time");
   let showButton = document.getElementById("reset");
-  // let finalMessage = document.getElementById("message");
 
   // hangman
   // first line
@@ -249,7 +179,7 @@ window.onload = function() {
 
   function hint() {
     let hintIndex = wordsArr.indexOf(chosenWord);
-    showClue.innerHTML = "DEFINICIÓN: " + hints[hintIndex] + ".";
+    showClue.innerHTML = hints[hintIndex];
   }
 
   //Check matches
